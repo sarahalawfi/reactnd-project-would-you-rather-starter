@@ -1,10 +1,16 @@
 
-export const SET_AUTHED_USER = 'SET_AUTHED_USER '
+export const USER_LOG_IN = 'USER_LOG_IN'
+export const USER_LOG_OUT ='USER_LOG_OUT'
 
-
-export function setAuthedUser(id){
+export function userLogIn(id){
     return{
-        type: SET_AUTHED_USER ,
+        type: USER_LOG_IN ,
         id
+    }
+}
+
+export function userLogOut(){
+    return{
+        type: USER_LOG_OUT,
     }
 }
