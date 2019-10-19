@@ -1,7 +1,7 @@
 import { ADD_QUESTION_ANSWER, ADD_QUESTION, RECEIVE_QUESTIONS} from '../actions/questions'
 
 
-export function questions(state={},action){
+export default function questions(state={},action){
     switch(action.type){
         case RECEIVE_QUESTIONS:
             return{
