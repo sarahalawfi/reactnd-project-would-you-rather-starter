@@ -13,7 +13,7 @@ html, body, #root, .app-container{
 }
 
 .pucHomeSing{
-           width: 190px;
+    width: 190px;
     height: 198px;
     border-radius: 0px;
     margin: 8% 13% 3% 5%;
@@ -469,3 +469,54 @@ html, body, #root, .app-container{
   height: 35px;
   margin: 10px;
 }
+
+
+.nav-item{
+    text-align: center;
+}
+
+.nav-center {  
+  text-align: center;
+}
+
+.CenterText{
+      text-align: center;
+
+}
+
+.avatar {
+  height: 50px;
+  border-radius: 25px;
+  margin: 10px;
+  float: left;
+  
+
+}
+
+/* ul {
+  padding-left: 0;
+} */
+
+.question {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.question-info {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Cardss{
+  list-style-type: none;
+  padding: 10px;
+  text-decoration: none;
+}
+

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import { NavLink } from 'react-router-dom'
 
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
@@ -10,6 +11,8 @@ import picSitCall from "./../images/phone-call.png";
 import picAbout from "./../images/aboutPaper.png";
 import LogOutImg from "./../images/LogOutImg.png";
 import { connect } from 'react-redux'
+import { Link, withRouter } from "react-router-dom";
+
 
 
 
@@ -27,6 +30,7 @@ render(){
 
        <React.Fragment>
             <SideNav >
+                
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="home">
                     
@@ -34,6 +38,9 @@ render(){
                 <React.Fragment>
 
                         < NavItem eventKey="home" >
+                            
+                        
+
                             <NavIcon >
                                 <i className="fa fa-fw fa-home sidebarCall" />
                                  <img className="picSit" src={user.avatarURL} alt="Avater" />
@@ -42,54 +49,68 @@ render(){
                             <NavIcon>
                                 <i className="fa fa-fw fa-home sidebarCall" />
                                  <img className="picSit" src={user.avatarURL} alt="Logo" />
+                                 
                             </NavIcon>
                             <NavText>
                                  {`Hello ${user.name}`}
                          </NavText>
                         </NavItem >
 
-                        < NavItem eventKey="home" >
-                            <NavIcon to='/Home'  >
+                        < NavItem eventKey="home"  >
+                            
+                            <NavIcon  >
                                 <i className="fa fa-fw fa-home  sidebar" />
                                 <img className="picSit" src={picSitHome} alt="Logo" />
                             </NavIcon>
-                            <NavText to='/Home'  >
-                                Dashbord
-                </NavText>
+                             
+                             <NavLink tag={Link} to='/Home'>
+                                 Dashbord
+                             </NavLink>
+                             
+                                 
+
+                             
+
+                           
                         </NavItem >
 
 
-                        < NavItem eventKey="home" >
-                            <NavIcon to='/add'  >
+                         < NavItem eventKey="home" >
+                            <NavIcon   >
                                 <i className="fa fa-fw fa-home  sidebar" />
                                 <img className="picSit" src={picSitPlus} alt="Logo" />
 
                             </NavIcon>
-                            <NavText to='/add'  >
-                                New Question
-                </NavText>
+                            
+                             <NavLink tag={Link} to='/add' >
+                                  New Question
+                             </NavLink>
+                            
                         </NavItem >
 
-                        < NavItem eventKey="home" >
+                         < NavItem eventKey="home" >
                             <NavIcon to='/leaderboard'   >
                                 <i className="fa fa-fw fa-home  sidebar" />
                                 <img className="picSit" src={picAbout} alt="Logo" />
 
                             </NavIcon>
-                            <NavText to='/leaderboard'  >
-                                Leader Board
-                     </NavText>
+                          
+                             <NavLink tag={Link} to='/leaderboard' >
+                                 LeaderBoard
+                             </NavLink>
+                            
                         </NavItem >
 
-                        <NavItem eventKey="charts">
-
+                         <NavItem eventKey="charts" >
                             <NavIcon>
                                 <i className="fa fa-fw fa-line-chart " />
                                 <img className="picSit" src={picSit} alt="Logo" />
                             </NavIcon>
-                            <NavText to='/'  >
-                                Sing Out
-                          </NavText>
+                             
+                             <NavLink tag={Link} to='/' >
+                                 Sing Out
+                             </NavLink>
+                            
 
 
                         </NavItem>
@@ -120,4 +141,4 @@ return{
 }
 
 
-export default connect(mapStateToProps)(NavBar);
+export default withRouter(connect(mapStateToProps)(NavBar));
