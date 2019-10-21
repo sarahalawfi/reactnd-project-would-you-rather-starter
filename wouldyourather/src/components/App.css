@@ -112,10 +112,11 @@ html, body, #root, .app-container{
     left: 0;
     z-index: 1006;
     min-width: 64px;
-    background: #7abbaa;
+    background: #F3C13A !important;
     transition: min-width 0.15s;
 
     }
+  
 
 .sidenav---sidenav-nav---3tvij > .sidenav---sidenav-navitem---uwIJ- > .sidenav---navitem---9uL5T {
     position: relative;
@@ -126,17 +127,22 @@ html, body, #root, .app-container{
     text-decoration: none;
     border: 3px solid #ffffff2b;
     font-size: 14px;
+       
+
 }
 .sidenav---sidenav-navitem---uwIJ-:last-child{
     position: absolute;
     bottom: 0;
     width: 100%;
+   
+
 }
 .sidebarCall.sidenav---sidenav-navitem---uwIJ-{
     position: absolute;
     bottom: 50px;
     margin-bottom: 4%;
     width: 100%;
+
 }
 
 .icondit{
@@ -485,10 +491,11 @@ html, body, #root, .app-container{
 }
 
 .avatar {
-  height: 50px;
+  height: 15%;
   border-radius: 25px;
   margin: 10px;
   float: left;
+  width: 15%;
   
 
 }

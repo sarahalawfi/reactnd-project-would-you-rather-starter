@@ -30,17 +30,11 @@ render(){
 
        <React.Fragment>
             <SideNav >
-                
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="home">
-                    
-
                 <React.Fragment>
 
                         < NavItem eventKey="home" >
-                            
-                        
-
                             <NavIcon >
                                 <i className="fa fa-fw fa-home sidebarCall" />
                                  <img className="picSit" src={user.avatarURL} alt="Avater" />
@@ -62,18 +56,14 @@ render(){
                                 <i className="fa fa-fw fa-home  sidebar" />
                                 <img className="picSit" src={picSitHome} alt="Logo" />
                             </NavIcon>
-                             
-                             <NavLink tag={Link} to='/Home'>
+
+                             <NavText>
+                             <NavLink  to='/Home'>
                                  Dashbord
                              </NavLink>
-                             
-                                 
-
-                             
-
-                           
+                             </NavText>
+                          
                         </NavItem >
-
 
                          < NavItem eventKey="home" >
                             <NavIcon   >
@@ -81,10 +71,12 @@ render(){
                                 <img className="picSit" src={picSitPlus} alt="Logo" />
 
                             </NavIcon>
-                            
-                             <NavLink tag={Link} to='/add' >
+
+                            <NavText>
+                             <NavLink  to='/add' >
                                   New Question
                              </NavLink>
+                             </NavText>
                             
                         </NavItem >
 
@@ -94,10 +86,12 @@ render(){
                                 <img className="picSit" src={picAbout} alt="Logo" />
 
                             </NavIcon>
-                          
-                             <NavLink tag={Link} to='/leaderboard' >
+
+                            <NavText>
+                             <NavLink  to='/leaderboard' >
                                  LeaderBoard
                              </NavLink>
+                             </NavText>
                             
                         </NavItem >
 
@@ -107,23 +101,20 @@ render(){
                                 <img className="picSit" src={picSit} alt="Logo" />
                             </NavIcon>
                              
-                             <NavLink tag={Link} to='/' >
+                             <NavText>
+                             <NavLink  to='/' >
                                  Sing Out
                              </NavLink>
-                            
-
-
+                             </NavText>
+                        
                         </NavItem>
-
-
 
                     </React.Fragment>
 
                 </SideNav.Nav>
             </SideNav>
-         
 
-    </React.Fragment>
+     </React.Fragment>
     )
 }
 

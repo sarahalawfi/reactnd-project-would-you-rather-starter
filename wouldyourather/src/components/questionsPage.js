@@ -1,0 +1,48 @@
+import React, { Component, Fragment } from 'react'
+import QuestionPoll from './questionPoll'
+import { connect } from 'react-redux'
+import { Button, Card, Image, Radio } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
+
+
+
+class QuestionsPage extends Component{
+
+render(){
+
+// the Question page
+    const { id, question}=this.props
+    return(
+            <Card.Group>
+                <Card>
+                    <Card.Content>
+                    <div className="question-info"></div>
+                    <Card.Meta className="CenterText">Would You Rather</Card.Meta>
+                        <br />
+                    <Card.Description className="CenterText">
+                        <QuestionPoll id={question.id} />
+                        </Card.Description>
+            </Card.Content>
+        </Card>
+    </Card.Group >
+    
+    )
+}
+
+}
+
+function mapStateToProps({ questions }, props){
+
+    const { id } = props.match.params
+    const question = questions[id];
+ 
+
+           
+   
+    return{
+        id,
+        question
+    }
+}
+
+export default connect(mapStateToProps)(QuestionsPage);
