@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 class LogIn extends Component {
-    componentDidMount(){
-        this.props.dispatch(userLogOut())
-    }
+    // componentDidMount(){
+    //     this.props.dispatch(userLogOut())
+    // }
     state = {
         userName: '',
         toHome: false

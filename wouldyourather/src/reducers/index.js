@@ -8,8 +8,8 @@ import { loadingBarReducer } from 'react-redux-loading'
 //Make it in a single Reducer
 export default combineReducers({
     authedUser,
-    users,
     questions,
+    users,
     loadingBar: loadingBarReducer,
 
 })
