@@ -526,4 +526,14 @@ html, body, #root, .app-container{
   padding: 10px;
   text-decoration: none;
 }
+.ui progress{
+    margin-left:auto !important; 
+    margin-right:0!important;
+}
+
+.marginCard{
+ margin:10px;
+
+}
+
 

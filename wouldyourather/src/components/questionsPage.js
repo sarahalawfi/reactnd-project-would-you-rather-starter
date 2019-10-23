@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import QuestionPoll from './questionPoll'
 import { connect } from 'react-redux'
-import { Button, Card, Image, Radio } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { Card } from 'semantic-ui-react'
+import ErrorPage from './errorPage'
 
 
 
@@ -11,7 +11,11 @@ class QuestionsPage extends Component{
 render(){
 
 // the Question page
-    const { id, question}=this.props
+    const { question}=this.props
+
+    if (question === undefined) {
+        return <ErrorPage />
+    }
     return(
             <Card.Group>
                 <Card>

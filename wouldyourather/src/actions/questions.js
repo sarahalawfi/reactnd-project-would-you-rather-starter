@@ -11,21 +11,6 @@ export function recevieQuestions(questions){
     }
 }
 
-// add (save) the questions to database then pass it to addQuestion action
-export function handleAddQuestion(optionOneText, optionTwoText){
-    // will take the 2 option and the authedUer from getState.
-    return (dispatch,getState)=>{
-        const{ authedUser }= getState()
-        
-        return saveQuestion({
-            optionOneText,
-            optionTwoText,
-            author:authedUser
-
-        })
-            .then((question) => dispatch(addQuestion(question)))  
-    }
-}
 
 
 // add the questions
@@ -35,6 +20,21 @@ return{
     question
     };
 
+}
+
+// add (save) the questions to database then pass it to addQuestion action
+export function handleAddQuestion(optionOneText, optionTwoText) {
+    // will take the 2 option and the authedUer from getState.
+    return (dispatch, getState) => {
+        const { authedUser } = getState()
+
+        const info = { optionOneText,
+             optionTwoText,
+            author: authedUser};
+
+        return saveQuestion(info)
+            .then((question) => dispatch(addQuestion(question)))
+    }
 }
 
 

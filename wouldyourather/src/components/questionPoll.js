@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {Button, Card, Image, Segment, Grid, Progress,Icon} from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { handleAddQuestionAnswer} from '../actions/questions'
+
 
 
 
@@ -19,18 +20,16 @@ class QuestionPoll extends Component{
 
 
         state = {
-            answer:'',
-            resultPage:false
+            answer:''
         }
+
+
     toDetails = (e, id) => {
         e.preventDefault()
         this.props.history.push(`/questions/${id}`)
     }
 
-    componentDidMount = () => {
-        const { authorName }=this.props
-        console.log(authorName.answers)
-    };
+   
 
 
     handleChange = (event) => {
@@ -44,15 +43,12 @@ class QuestionPoll extends Component{
 
     handleSubmit =(e)=>{
         e.preventDefault();
-        const { dispatch, question } = this.props;
+        const { dispatch, question, user } = this.props;
         const { answer}=this.state
 
+        dispatch(handleAddQuestionAnswer(question.id, answer))
 
-        this.setState({
-            resultPage: true
-        })
-
-   dispatch(handleAddQuestionAnswer(question.id,answer))
+        console.log(user.answers)
 
     }
 
@@ -65,18 +61,26 @@ class QuestionPoll extends Component{
             optionOne,
             optionTwo,
             question,
-            question_id,
             user,
             voteForOptionOne,
-            voteForOptionTwo
+            voteForOptionTwo,
+            totalVotes,
+            authedUser
             } =this.props
-        const { answer, resultPage} =this.state
+        const { answer} =this.state
 
-        const totalVotes = voteForOptionOne + voteForOptionTwo;
+        const resultPage = question.optionOne.votes.includes(authedUser) && 'optionOne' ||
+            question.optionTwo.votes.includes(authedUser) && 'optionTwo' ;
 
-        if (question===null){
-            return <p>This Question doesn't existd </p>
+  const OpenResultPage=()=>{
+        if (resultPage){
+            return resultPage
         }
+        else{
+            return '';
+        }
+    }
+
 
         return(
            <Card.Group>
@@ -85,18 +89,20 @@ class QuestionPoll extends Component{
                         <Segment>
                             <Grid columns={2} relaxed='very'>
                                 <Grid.Column>
-                        <div class="four wide co</div>lumn">
-                        <Image  className="avatar"  src={avatar}/>
+                                    <div className="four wide co</div>lumn">
+                        <Image  floated='right' className="avatar"  src={avatar}/>
                         </div>
-                        <div class="nine wide column">
+                                    <div className="nine wide column">
                         <Card.Header>{authorName} asks: </Card.Header>
                      </div>
                                 </Grid.Column>
                                 <Grid.Column>
-                <Card.Meta>Would you rather</Card.Meta>
+                
                           <br/>
-                        {resultPage===false?(
+                         {OpenResultPage!==null?
+                        (
                           <form onSubmit={this.handleSubmit}>
+                           <Card.Meta>Would you rather</Card.Meta>
                         <Card.Description className="CenterText">        
                             <div className="form-check">
                                 <label> <input type="radio" name="react-tips" value="optionOne" checked={answer === 'optionOne'} onChange={this.handleChange} className="form-check-input"/>
@@ -109,7 +115,7 @@ class QuestionPoll extends Component{
                                 </label>
                                      </div>
                                                 <div className="form-group">
-                                                    <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary" type="submit" basic color='green'>
+                                                        <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary" style={{ backgroundcolor: '#b6afaf' }} type="submit" >
                                                         Submit
                                              </Button>
                                                 </div>       
@@ -117,11 +123,12 @@ class QuestionPoll extends Component{
                                       
                                     </form>
 
-                                    ) : (<Card.Content>
+                                    ) : (    <Card.Content>
                                                 <Card.Header>Result</Card.Header>
                                           
-                                            <Card.Description className="CenterText">
+                                            <Card.Description >
                                                 <p>{optionOne}</p>
+                                                <div className="ui progress w-50 p-3" floated='right'>
                                                 {user.answers[question.id] === "optionOne"&&(
                                                     <Icon name="check" 
                                                         circular
@@ -129,9 +136,12 @@ class QuestionPoll extends Component{
                                                         inverted
                                                         style={{ marginLeft: 10 }}/>
                                                 )}
-                                                <Progress value={voteForOptionOne} total={totalVotes} progress='percent' label={`${voteForOptionOne} out of ${totalVotes} votes`}/>
-                                                
+                                                <Progress value={voteForOptionOne} total={totalVotes} progress='percent' 
+                                                label={`${voteForOptionOne} out of ${totalVotes} votes`}/>
+                                                </div>
+
                                                 <p>{optionTwo}</p>
+                                                <div className="ui progress w-50 p-3 " floated='right'>
                                                 {user.answers[question.id] === "optionTwo" && (
                                                     <Icon name="check"
                                                         circular
@@ -139,7 +149,9 @@ class QuestionPoll extends Component{
                                                         inverted
                                                         style={{ marginLeft: 10 }} />
                                                 )}
-                                                <Progress value={voteForOptionTwo} total={totalVotes} progress='percent' label={`${voteForOptionTwo} out of ${totalVotes} votes`} />
+                                                <Progress value={voteForOptionTwo} total={totalVotes} progress='percent' 
+                                                label={`${voteForOptionTwo} out of ${totalVotes} votes`} />
+                                                </div>
              
                                             </Card.Description>
                                             </Card.Content> 
@@ -175,6 +187,7 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
     const optionTwo = question.optionTwo.text;
     const voteForOptionOne = question.optionOne.votes.length
     const voteForOptionTwo = question.optionOne.votes.length
+    const totalVotes = voteForOptionOne + voteForOptionTwo;
 
 
     
@@ -188,7 +201,8 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
         question: question ? question:null,
         user,
         voteForOptionOne,
-        voteForOptionTwo
+        voteForOptionTwo,
+        totalVotes
 
     }
 

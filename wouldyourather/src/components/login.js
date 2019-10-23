@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 class LogIn extends Component {
-    // componentDidMount(){
-    //     this.props.dispatch(userLogOut())
-    // }
+    componentDidMount(){
+        this.props.dispatch(userLogOut())
+    }
     state = {
         userName: '',
         toHome: false
@@ -31,6 +31,7 @@ class LogIn extends Component {
         this.setState(()=>({
             toHome: userName===''?false:true
         }))
+        
 
     };
        
@@ -50,9 +51,9 @@ class LogIn extends Component {
         return (
             
             <div className="pt-5 mt-5">
-                <div class="container mmmm">
+                <div className="container mmmm">
                     <h3 id="textForSingIn">Welcome to the Would You Rather App!</h3>
-                    <div class="row">
+                    <div className="row">
                         <img className="col-sm" className="pucHomeSingin" src={Hi} alt="Logo" />
                         <form className="col-sm yyyy" onSubmit={this.handleSubmit}>
                             <h1 className="changeH1 h1Addpost"> Sing in </h1>

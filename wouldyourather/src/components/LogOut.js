@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { userLogOut } from '../actions/authedUser'
 
@@ -12,12 +13,11 @@ class LogOut extends Component {
 
     render(){
         return(
-            <div>
-                <Redirect to='/' />
-            </div>
+         <Redirect to='/'/>
+           
         )
     }
 }
 
-export default LogOut;
+export default connect()(LogOut);
 

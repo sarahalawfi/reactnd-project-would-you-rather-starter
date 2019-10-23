@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, {  NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import { NavLink } from 'react-router-dom'
 
 // Be sure to include styles at some point, probably during your bootstraping
@@ -7,11 +7,9 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import picSit from "./../images/settings.png";
 import picSitHome from "./../images/home.png";
 import picSitPlus from "./../images/plus.png";
-import picSitCall from "./../images/phone-call.png";
 import picAbout from "./../images/aboutPaper.png";
-import LogOutImg from "./../images/LogOutImg.png";
 import { connect } from 'react-redux'
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 
 
@@ -102,7 +100,7 @@ render(){
                             </NavIcon>
                              
                              <NavText>
-                             <NavLink  to='/' >
+                                 <NavLink to='/LogOut' >
                                  Sing Out
                              </NavLink>
                              </NavText>

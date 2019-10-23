@@ -10,6 +10,8 @@ import NavBar from './nav'
 import QuestionPoll from './questionsPage'
 import LogOut from './LogOut';
 import PostQuestion from './postQuestion'
+import LeaderBoard from './leaderBoard'
+import ErrorPage from './errorPage'
 
 
 
@@ -17,7 +19,7 @@ class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialData())
   }
-                  //  <Route path='/LogOut' component={LogOut} /> 
+                
 
   render() {
     const {authedUser}=this.props
@@ -28,12 +30,17 @@ class App extends Component {
             <LoadingBar/>
             <div className='container'>
             <Route path='/' exact component={LogIn} />
-            {authedUser === null ? <LogIn/> :
+            {authedUser === null ? 
+            <LogIn/> 
+                :
               <div>
               < NavBar /> 
                 <Route path='/Home'  component={Home} />
                 <Route path='/questions/:id' component={QuestionPoll}/>
                 <Route path='/add' component={PostQuestion} />
+                <Route path='/leaderboard' component={LeaderBoard} />
+                <Route path='/LogOut' exact component={LogOut} /> 
+                <Route path='/error' component={ErrorPage} />
             </div>
              }
 
