@@ -7,21 +7,24 @@ import { handleAddQuestionAnswer} from '../actions/questions'
 
 
 
+
 class QuestionPoll extends Component{ 
-    // for Question 
-    // give every option value
-    // select the user option
-    // save it with dispatch
-    // value to switch the page
-
-
-    // for Answered page
-    // 
-
 
         state = {
-            answer:''
+            answer:'',
+            OpenResultPage:false
         }
+        componentDidMount(){
+            const { userAnswers, question}=this.props
+            if (userAnswers.hasOwnProperty(question.id)) {
+                this.setState({
+                    OpenResultPage: true
+                });
+
+            }
+        }
+
+    
 
 
     toDetails = (e, id) => {
@@ -43,15 +46,15 @@ class QuestionPoll extends Component{
 
     handleSubmit =(e)=>{
         e.preventDefault();
-        const { dispatch, question, user } = this.props;
-        const { answer}=this.state
+        const { dispatch, question } = this.props;
+        const { answer}=this.state;
+
+        this.setState({
+            OpenResultPage: true
+        })
 
         dispatch(handleAddQuestionAnswer(question.id, answer))
-
-        console.log(user.answers)
-
     }
-
    
 
     render(){
@@ -65,21 +68,12 @@ class QuestionPoll extends Component{
             voteForOptionOne,
             voteForOptionTwo,
             totalVotes,
-            authedUser
+            userAnswers,
             } =this.props
-        const { answer} =this.state
+        const { answer, OpenResultPage} =this.state
 
-        const resultPage = question.optionOne.votes.includes(authedUser) && 'optionOne' ||
-            question.optionTwo.votes.includes(authedUser) && 'optionTwo' ;
-
-  const OpenResultPage=()=>{
-        if (resultPage){
-            return resultPage
-        }
-        else{
-            return '';
-        }
-    }
+       
+     
 
 
         return(
@@ -99,8 +93,8 @@ class QuestionPoll extends Component{
                                 <Grid.Column>
                 
                           <br/>
-                         {OpenResultPage!==null?
-                        (
+                            { !OpenResultPage? 
+                                      (
                           <form onSubmit={this.handleSubmit}>
                            <Card.Meta>Would you rather</Card.Meta>
                         <Card.Description className="CenterText">        
@@ -115,7 +109,7 @@ class QuestionPoll extends Component{
                                 </label>
                                      </div>
                                                 <div className="form-group">
-                                                        <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary" style={{ backgroundcolor: '#b6afaf' }} type="submit" >
+                                                        <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary"  type="submit" >
                                                         Submit
                                              </Button>
                                                 </div>       
@@ -123,39 +117,43 @@ class QuestionPoll extends Component{
                                       
                                     </form>
 
-                                    ) : (    <Card.Content>
-                                                <Card.Header>Result</Card.Header>
-                                          
+                                    ) :(<Card.Content>
+                                            <Card.Header>Result</Card.Header>
+
                                             <Card.Description >
-                                                <p>{optionOne}</p>
-                                                <div className="ui progress w-50 p-3" floated='right'>
-                                                {user.answers[question.id] === "optionOne"&&(
-                                                    <Icon name="check" 
-                                                        circular
-                                                        color="green"
-                                                        inverted
-                                                        style={{ marginLeft: 10 }}/>
-                                                )}
-                                                <Progress value={voteForOptionOne} total={totalVotes} progress='percent' 
-                                                label={`${voteForOptionOne} out of ${totalVotes} votes`}/>
+                                                <p style={{ textAlign: 'center' }}>{optionOne}</p>
+                                                <div className=" w-50 p-3" style={{ float: 'right' }} >
+                                                    {
+                                                        user.answers[question.id] === "optionOne" && (
+                                                            <Icon className="star icon"
+                                                                color="yellow"
+                                                                inverted
+                                                                style={{ marginLeft: 10 }} />
+                                                        )
+                                                    }
+
+                                                  
+                                                    <Progress value={voteForOptionOne} total={totalVotes} progress='percent'
+                                                        label={`${voteForOptionOne} out of ${totalVotes} votes`} />
+                                                </div>
+                                                <br/>
+                                                <p style={{ textAlign: 'center' }}>{optionTwo}</p>
+                                                <div className=" w-50 p-3" style={{ float: 'right' }}>
+                                                {user.answers[question.id] === "optionTwo" && (
+                                                        <Icon className="star icon"
+                                                            color="yellow"
+                                                            inverted
+                                                            style={{ marginLeft: 10 }} />
+                                                        )
+                                                    }
+                                             
+                                                    <Progress value={voteForOptionTwo} total={totalVotes} progress='percent'
+                                                        label={`${voteForOptionTwo} out of ${totalVotes} votes`}  />
                                                 </div>
 
-                                                <p>{optionTwo}</p>
-                                                <div className="ui progress w-50 p-3 " floated='right'>
-                                                {user.answers[question.id] === "optionTwo" && (
-                                                    <Icon name="check"
-                                                        circular
-                                                        color="green"
-                                                        inverted
-                                                        style={{ marginLeft: 10 }} />
-                                                )}
-                                                <Progress value={voteForOptionTwo} total={totalVotes} progress='percent' 
-                                                label={`${voteForOptionTwo} out of ${totalVotes} votes`} />
-                                                </div>
-             
                                             </Card.Description>
-                                            </Card.Content> 
-                                            ) }
+                                        </Card.Content>
+                                        ) }
 
                                 </Grid.Column>
                             </Grid>
@@ -165,7 +163,7 @@ class QuestionPoll extends Component{
             
             <Card.Content extra>
                         <div className="form-group">
-                            <Button className='btn btn-default mt-2 ui two buttons'  basic color='green' onClick={(e) => this.toDetails(e, question.id )}>
+                            <Button  className='btn btn-default mt-2 ui two buttons'  basic color='green' onClick={(e) => this.toDetails(e, question.id )}>
                         View Poll
                         </Button>
                 </div>
@@ -185,9 +183,12 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
     const avatar = users[question.author].avatarURL;
     const optionOne = question.optionOne.text;
     const optionTwo = question.optionTwo.text;
-    const voteForOptionOne = question.optionOne.votes.length
-    const voteForOptionTwo = question.optionOne.votes.length
+    const voteForOptionOne = question.optionOne.votes.length;
+    const voteForOptionTwo = question.optionTwo.votes.length;
     const totalVotes = voteForOptionOne + voteForOptionTwo;
+    // for Result page
+    const userAnswers = users[authedUser].answers;
+
 
 
     
@@ -202,7 +203,8 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
         user,
         voteForOptionOne,
         voteForOptionTwo,
-        totalVotes
+        totalVotes,
+        userAnswers
 
     }
 
