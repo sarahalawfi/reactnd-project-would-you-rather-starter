@@ -1,6 +1,6 @@
 import React, { Component,Fragment} from 'react'
 import { connect } from 'react-redux'
-import { Card, Image, Grid, Header, Label }  from 'semantic-ui-react'
+import { Card, Image, Label }  from 'semantic-ui-react'
 
 
 class LeaderBoard extends Component{

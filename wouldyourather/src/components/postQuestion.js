@@ -9,7 +9,7 @@ class PostQuestion extends Component {
     state = {
         optionOneText:'',
         optionTwoText:'',
-        toHome: false,
+        toHome: false
         }
 
     handleChangeOptionOne=(event)=>{
@@ -28,7 +28,7 @@ class PostQuestion extends Component {
 
     handleSubmit=(e)=>{
         e.preventDefault()
-        const { optionOneText, optionTwoText,toHome}=this.state
+        const { optionOneText, optionTwoText}=this.state
 
         this.props.dispatch(handleAddQuestion(optionOneText, optionTwoText))
 

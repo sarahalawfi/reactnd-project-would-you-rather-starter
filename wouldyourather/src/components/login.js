@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import Hi from "/Users/sara/react/project4/reactnd-project-would-you-rather-starter/wouldyourather/src/images/Hi.gif";
-import { userLogOut, userLogIn } from '../actions/authedUser'
+import {  userLogIn } from '../actions/authedUser'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 class LogIn extends Component {
-    componentDidMount(){
-        this.props.dispatch(userLogOut())
-    }
+    
+   
     state = {
         userName: '',
         toHome: false
@@ -24,16 +23,18 @@ class LogIn extends Component {
    
     handleSubmit = e => {
   // take the id and pass it to userLogin()
+        const { userName } = this.state
         e.preventDefault();
-        const { userName }=this.state
         this.props.dispatch(userLogIn(userName))
 
         this.setState(()=>({
             toHome: userName===''?false:true
         }))
-        
+      
 
     };
+
+    
        
 
    
@@ -42,11 +43,11 @@ class LogIn extends Component {
         const { userName, toHome }=this.state
         const { users }=this.props
 
-        console.log(users);
-   
-        if(toHome === true){
+        if (toHome) {
             return <Redirect to='/Home' />
         }
+      
+
        
         return (
             
@@ -54,7 +55,9 @@ class LogIn extends Component {
                 <div className="container mmmm">
                     <h3 id="textForSingIn">Welcome to the Would You Rather App!</h3>
                     <div className="row">
-                        <img className="col-sm" className="pucHomeSingin" src={Hi} alt="Logo" />
+                        <div className="col-sm">
+                        <img  className="pucHomeSingin" src={Hi} alt="Logo" />
+                        </div>
                         <form className="col-sm yyyy" onSubmit={this.handleSubmit}>
                             <h1 className="changeH1 h1Addpost"> Sing in </h1>
                             <div className="form-group">
@@ -70,9 +73,9 @@ class LogIn extends Component {
                             <div className="container">
                                 <div className="row">
                                   
-                                    
-                                    <button disabled={userName === ''} className="col-sm" type="submit" className="cssBtn twoButtonSing">Sign In</button>
-                                    
+                                    <div className="col-sm ">
+                                    <button disabled={userName === ''}  type="submit" className="cssBtn twoButtonSing">Sign In</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>

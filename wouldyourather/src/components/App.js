@@ -23,28 +23,30 @@ class App extends Component {
 
   render() {
     const {authedUser}=this.props
+      
     return (
      
         <Router>
           <Fragment>
             <LoadingBar/>
+          
             <div className='container'>
-            <Route path='/' exact component={LogIn} />
-            {authedUser === null ? 
-            <LogIn/> 
-                :
-              <div>
+            < Route path='/' component={LogIn} />
+            {authedUser === null ?
+              <LogIn/> :
+              <Fragment>
               < NavBar /> 
                 <Route path='/Home'  component={Home} />
                 <Route path='/questions/:id' component={QuestionPoll}/>
                 <Route path='/add' component={PostQuestion} />
                 <Route path='/leaderboard' component={LeaderBoard} />
-                <Route path='/LogOut' exact component={LogOut} /> 
+                <Route path='/LogOut'  component={LogOut} /> 
                 <Route path='/error' component={ErrorPage} />
-            </div>
+                </Fragment>
              }
 
             </div>
+            
           </Fragment>
         </Router>
     )

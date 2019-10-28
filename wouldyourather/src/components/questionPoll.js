@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Button, Card, Image, Segment, Grid, Progress,Icon} from 'semantic-ui-react'
+import {Button, Card, Image, Segment, Grid, Progress} from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { handleAddQuestionAnswer} from '../actions/questions'
 import starr from "./../images/starr.png";
 
@@ -11,13 +11,10 @@ import starr from "./../images/starr.png";
 
 
 class QuestionPoll extends Component{ 
-
-    // the icon
-    // style
-    
         state = {
             answer:'',
-            OpenResultPage:false
+            OpenResultPage:false,
+          
         }
         componentDidMount(){
             const { userAnswers, question}=this.props
@@ -29,10 +26,11 @@ class QuestionPoll extends Component{
             }
         }
 
-    toDetails = (e, id) => {
-        e.preventDefault()
-        this.props.history.push(`/questions/${id}`)
-    }
+    // toDetails = (e, id) => {
+    //     e.preventDefault();
+    //     this.props.history.push(`/questions/${id}`);  
+      
+    // }
 
     handleChange = (event) => {
         const nawValue = event.target.value;
@@ -70,26 +68,24 @@ class QuestionPoll extends Component{
         const { answer, OpenResultPage} =this.state
 
         return(
+            <Link to={`/questions/${question.id}`} className='questions'>
             <Card.Group >
              <Card>
               <Card.Content>
                         <Segment>
                             <Grid columns={2} relaxed='very'>
                                 <Grid.Column>
-
                                     <Grid.Column width={4}>
                         <Image  floated='right' className="avatar"  src={avatar}/>
                                     </Grid.Column>
 
-                                    <div className="nine wide column">
+                        <div className="nine wide column">
                         <Card.Header>{authorName} asks: </Card.Header>
-                     </div>
+                          </div>
                                 </Grid.Column>
                                 <Grid.Column>
-                
                           <br/>
-                            { !OpenResultPage? 
-                                      (
+                            { !OpenResultPage? (
                           <form onSubmit={this.handleSubmit}>
                            <Card.Meta>Would you rather</Card.Meta>
                         <Card.Description className="CenterText">        
@@ -102,77 +98,50 @@ class QuestionPoll extends Component{
                                 <label><input type="radio" name="react-tips" value="optionTwo" checked={answer === 'optionTwo'} onChange={this.handleChange} className="form-check-input" />
                                 {optionTwo}
                                 </label>
-                                     </div>
-                                                <div className="form-group">
-                                                        <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary"  type="submit" >
-                                                        Submit
-                                             </Button>
-                                                </div>       
+                                 </div>
+                                 <div className="form-group">
+                                <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary"  type="submit" >
+                                    Submit
+                                </Button>
+                                 </div>       
                                  </Card.Description>
-                                      
-                                    </form>
-
-                                    ) :(
-                                          
+                                   </form> ):(
                                             <React.Fragment>     
                                     <Card.Content>
                                     <Card.Header>Result</Card.Header>
-                                                
-                                                        <label className="pCenter">{optionOne}</label>
-                                                
-                                                    {
-                                                        user.answers[question.id] === "optionOne" && (
-                                                            
-                                                            <img className=" userVote" src={starr} alt="Logo" />
-                                                       
-                                                        )}
+                                     <label className="pCenter">{optionOne}</label>
+                                              { user.answers[question.id] === "optionOne" && (
+                                                 <img className=" userVote" src={starr} alt="Logo" />
+                                                       )}
                                                         
-
-                                                    <div className=" w-75 "  >
-                                                    <Progress value={voteForOptionOne} total={totalVotes} progress='percent'
-                                                            label={`${voteForOptionOne} out of ${totalVotes} votes`} className="wrapper"/>
-                                                </div>
-                                                <br/>
-                                            
-                                            <br />
-                                              
+                                                    <Progress value={voteForOptionOne} total={totalVotes} progress='percent'/>
+                                                    <label>{`${voteForOptionOne} out of ${totalVotes} votes`} </label>
                                                  
-                                                <label className="pCenter">{optionTwo}</label>
+                                                 <br/>
+                                     <label className="pCenter">{optionTwo}</label>
                                                 {user.answers[question.id] === "optionTwo" && (
-                                                       
-                                                        <img className="userVote" src={starr } alt="Logo" />
-                                                )}
-                                                   
-                                                    <div className=" w-75 " >
-                                                    <Progress value={voteForOptionTwo} total={totalVotes} progress='percent'
-                                                            label={`${voteForOptionTwo} out of ${totalVotes} votes`} className= "wrapper"/>
-                                                </div>
-
-                                                   
+                                                      <img className="userVote" src={starr } alt="Logo" />
+                                                    )}
+                                                 
+                                                    <Progress value={voteForOptionTwo} total={totalVotes} progress='percent'/>
+                                                    <label>{`${voteForOptionTwo} out of ${totalVotes} votes`} </label>
+                          
                                         </Card.Content>
-                                           
-                                                </React.Fragment>
-                                        ) }
+                                            </React.Fragment>
+                                        )}
 
-                                </Grid.Column>
-                            </Grid>
-                        </Segment>
+                                   </Grid.Column>
+                              </Grid>
+                         </Segment>
                        
-            </Card.Content>
+               </Card.Content>
             
-            <Card.Content extra>
-                        <div className="form-group">
-                            <Button  className='btn btn-default mt-2 ui two buttons'  basic color='green' onClick={(e) => this.toDetails(e, question.id )}>
-                        View Poll
-                        </Button>
-                </div>
-            </Card.Content>
+           
         </Card>
         
     </Card.Group>
-    
-    )
-    }
+            </Link>
+    )}
 }
 
 

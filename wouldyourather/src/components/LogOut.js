@@ -13,7 +13,7 @@ class LogOut extends Component {
 
     render(){
         return(
-         <Redirect to='/'/>
+            <Redirect to='/'/>
            
         )
     }
