@@ -59,7 +59,7 @@ export function handleAddQuestionAnswer(qid, answer) {
         return saveQuestionAnswer(info).catch(e => {
             console.warn(e,"Error in handleAddQuestionAnswer");
             dispatch(addQuestionAnswer(info));
-            alert('There was error in Answerd the question');
+            alert('There was error in Answered the question');
         });
     }
 

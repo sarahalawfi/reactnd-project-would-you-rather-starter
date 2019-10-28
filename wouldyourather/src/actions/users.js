@@ -10,4 +10,4 @@ export function recevieUsers ( users ){
 }
 
 // To update the user answer and question that created by user
-// i will user the questions action .
+// i used user the questions action .

@@ -5,19 +5,18 @@ import { Card } from 'semantic-ui-react'
 import ErrorPage from './errorPage'
 
 
-
 class QuestionsPage extends Component{
 
 render(){
 
-// the Question page
+// Question page
     const { question}=this.props
 
     if (question === undefined) {
         return <ErrorPage />
     }
     return(
-            <Card.Group>
+            <Card.Group >
                 <Card>
                     <Card.Content>
                     <div className="question-info"></div>
@@ -39,10 +38,6 @@ function mapStateToProps({ questions }, props){
 
     const { id } = props.match.params
     const question = questions[id];
- 
-
-           
-   
     return{
         id,
         question

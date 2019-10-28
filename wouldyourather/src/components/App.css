@@ -1,7 +1,8 @@
 html, body, #root, .app-container{
     height: 100%;
-    /* position: absolute;
-    bottom: 0px; */
+}
+body{
+        line-height: normal;
 }
 
 .logoStartPage{
@@ -534,6 +535,19 @@ html, body, #root, .app-container{
 .marginCard{
  margin:10px;
 
+}
+.pCenter{
+    text-align: center !important;
+}
+.progress{
+   overflow: visible !important;
+   width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center !important;
+}
+.userVote{
+width: 50px !important;
 }
 
 

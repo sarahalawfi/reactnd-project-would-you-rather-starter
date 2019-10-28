@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import SideNav, {  NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import { NavLink } from 'react-router-dom'
 
-// Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import picSit from "./../images/settings.png";
 import picSitHome from "./../images/home.png";
@@ -119,15 +118,11 @@ render(){
 
 }
 
- function mapStateToProps({ authedUser,users})
-{
+ function mapStateToProps({ authedUser,users}){
     // for image and name 
      const user = users[authedUser]
 return{
     user
-}
-
-}
-
+}}
 
 export default withRouter(connect(mapStateToProps)(NavBar));

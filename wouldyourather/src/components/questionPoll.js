@@ -3,6 +3,8 @@ import {Button, Card, Image, Segment, Grid, Progress,Icon} from 'semantic-ui-rea
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { handleAddQuestionAnswer} from '../actions/questions'
+import starr from "./../images/starr.png";
+
 
 
 
@@ -10,6 +12,9 @@ import { handleAddQuestionAnswer} from '../actions/questions'
 
 class QuestionPoll extends Component{ 
 
+    // the icon
+    // style
+    
         state = {
             answer:'',
             OpenResultPage:false
@@ -24,16 +29,10 @@ class QuestionPoll extends Component{
             }
         }
 
-    
-
-
     toDetails = (e, id) => {
         e.preventDefault()
         this.props.history.push(`/questions/${id}`)
     }
-
-   
-
 
     handleChange = (event) => {
         const nawValue = event.target.value;
@@ -67,25 +66,21 @@ class QuestionPoll extends Component{
             user,
             voteForOptionOne,
             voteForOptionTwo,
-            totalVotes,
-            userAnswers,
-            } =this.props
+            totalVotes} =this.props
         const { answer, OpenResultPage} =this.state
 
-       
-     
-
-
         return(
-           <Card.Group>
+            <Card.Group >
              <Card>
               <Card.Content>
                         <Segment>
                             <Grid columns={2} relaxed='very'>
                                 <Grid.Column>
-                                    <div className="four wide co</div>lumn">
+
+                                    <Grid.Column width={4}>
                         <Image  floated='right' className="avatar"  src={avatar}/>
-                        </div>
+                                    </Grid.Column>
+
                                     <div className="nine wide column">
                         <Card.Header>{authorName} asks: </Card.Header>
                      </div>
@@ -117,42 +112,46 @@ class QuestionPoll extends Component{
                                       
                                     </form>
 
-                                    ) :(<Card.Content>
-                                            <Card.Header>Result</Card.Header>
-
-                                            <Card.Description >
-                                                <p style={{ textAlign: 'center' }}>{optionOne}</p>
-                                                <div className=" w-50 p-3" style={{ float: 'right' }} >
+                                    ) :(
+                                          
+                                            <React.Fragment>     
+                                    <Card.Content>
+                                    <Card.Header>Result</Card.Header>
+                                                
+                                                        <label className="pCenter">{optionOne}</label>
+                                                
                                                     {
                                                         user.answers[question.id] === "optionOne" && (
-                                                            <Icon className="star icon"
-                                                                color="yellow"
-                                                                inverted
-                                                                style={{ marginLeft: 10 }} />
-                                                        )
-                                                    }
+                                                            
+                                                            <img className=" userVote" src={starr} alt="Logo" />
+                                                       
+                                                        )}
+                                                        
 
-                                                  
+                                                    <div className=" w-75 "  >
                                                     <Progress value={voteForOptionOne} total={totalVotes} progress='percent'
-                                                        label={`${voteForOptionOne} out of ${totalVotes} votes`} />
+                                                            label={`${voteForOptionOne} out of ${totalVotes} votes`} className="wrapper"/>
                                                 </div>
                                                 <br/>
-                                                <p style={{ textAlign: 'center' }}>{optionTwo}</p>
-                                                <div className=" w-50 p-3" style={{ float: 'right' }}>
+                                            
+                                            <br />
+                                              
+                                                 
+                                                <label className="pCenter">{optionTwo}</label>
                                                 {user.answers[question.id] === "optionTwo" && (
-                                                        <Icon className="star icon"
-                                                            color="yellow"
-                                                            inverted
-                                                            style={{ marginLeft: 10 }} />
-                                                        )
-                                                    }
-                                             
+                                                       
+                                                        <img className="userVote" src={starr } alt="Logo" />
+                                                )}
+                                                   
+                                                    <div className=" w-75 " >
                                                     <Progress value={voteForOptionTwo} total={totalVotes} progress='percent'
-                                                        label={`${voteForOptionTwo} out of ${totalVotes} votes`}  />
+                                                            label={`${voteForOptionTwo} out of ${totalVotes} votes`} className= "wrapper"/>
                                                 </div>
 
-                                            </Card.Description>
+                                                   
                                         </Card.Content>
+                                           
+                                                </React.Fragment>
                                         ) }
 
                                 </Grid.Column>
@@ -169,7 +168,9 @@ class QuestionPoll extends Component{
                 </div>
             </Card.Content>
         </Card>
+        
     </Card.Group>
+    
     )
     }
 }
@@ -189,11 +190,7 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
     // for Result page
     const userAnswers = users[authedUser].answers;
 
-
-
-    
     return{
-
         authedUser,
         authorName,
         avatar,
@@ -204,11 +201,8 @@ function mapStateToProps({ authedUser, questions, users }, { id}){
         voteForOptionOne,
         voteForOptionTwo,
         totalVotes,
-        userAnswers
-
+        userAnswers}
     }
-
-}
 
 export default withRouter(connect(mapStateToProps)(QuestionPoll));
 
