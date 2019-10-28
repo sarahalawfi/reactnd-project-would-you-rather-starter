@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Hi from "/Users/sara/react/project4/reactnd-project-would-you-rather-starter/wouldyourather/src/images/Hi.gif";
+import Hi from "./../images/Hi.gif";
 import {  userLogIn } from '../actions/authedUser'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
