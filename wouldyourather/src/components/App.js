@@ -3,7 +3,7 @@ import LogIn from './login';
 import "./App.css"
 import { handleInitialData } from '../actions/shared'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './home'
 import { LoadingBar } from 'react-redux-loading';
 import NavBar from './nav'
@@ -27,28 +27,35 @@ class App extends Component {
     return (
      
         <Router>
-          <Fragment>
-            <LoadingBar/>
           
-            <div className='container'>
-            < Route path='/' component={LogIn} />
+          <Fragment>
+          <LoadingBar />
+          <div className="container">
+          
             {authedUser === null ?
-              <LogIn/> :
               <Fragment>
-              < NavBar /> 
-                <Route path='/Home'  component={Home} />
-                <Route path='/questions/:id' component={QuestionPoll}/>
-                <Route path='/add' component={PostQuestion} />
-                <Route path='/leaderboard' component={LeaderBoard} />
-                <Route path='/LogOut'  component={LogOut} /> 
-                <Route path='/error' component={ErrorPage} />
-                </Fragment>
-             }
+              < Route path='/' component={LogIn} /> 
+              </Fragment>
+              :
+              <Fragment>
+                < NavBar />
+                <Switch>
+                <Route exact path='/Home'  component={Home} />
+                <Route exact path='/questions/:id'  component={QuestionPoll}/>
+                <Route exact path='/add'  component={PostQuestion} />
+                <Route exact path='/leaderboard'  component={LeaderBoard} />
+                  <Route exact path='/LogOut'   component={LogOut} /> 
+                <Route  component={ErrorPage} />
+                </Switch>
+              </Fragment>
 
-            </div>
-            
+               
+           }
+           
+          </div>
           </Fragment>
         </Router>
+     
     )
   }
 }

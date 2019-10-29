@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Hi from "./../images/Hi.gif";
-import {  userLogIn } from '../actions/authedUser'
+import { userLogIn, userLogOut} from '../actions/authedUser'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 class LogIn extends Component {
     
@@ -11,6 +11,10 @@ class LogIn extends Component {
         userName: '',
         toHome: false
     };
+
+    componentDidMount() {
+        this.props.dispatch(userLogOut())
+    }
 
     selectUser = (event) => {
 
@@ -40,14 +44,10 @@ class LogIn extends Component {
    
 
     render() {
-        const { userName, toHome }=this.state
+        const { userName }=this.state
         const { users }=this.props
 
-        if (toHome) {
-            return <Redirect to='/Home' />
-        }
-      
-
+       
        
         return (
             
@@ -97,4 +97,4 @@ function mapStateToProps({users}){
 
 
 
-export default connect(mapStateToProps)(LogIn);
+export default withRouter(connect(mapStateToProps)(LogIn));

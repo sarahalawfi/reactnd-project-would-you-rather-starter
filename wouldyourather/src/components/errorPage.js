@@ -11,7 +11,7 @@ class ErrorPage extends Component{
             <div>
                 <img style={{  height: 400, display: 'block', margin: 'auto', position: 'relative' }}
                  src={notFound} alt="notFoundPage" />
-                <center ><Link style={{ color: 'black' }} to="/">Return to Home Page</Link></center>
+                <center ><Link style={{ color: 'black' }} to="/Home">Return to Home Page</Link></center>
 
             </div>
         )
