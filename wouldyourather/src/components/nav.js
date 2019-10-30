@@ -55,7 +55,7 @@ render(){
                             </NavIcon>
 
                              <NavText>
-                             <NavLink  to='/Home'>
+                                 <NavLink to='/' >
                                  Dashbord
                              </NavLink>
                              </NavText>

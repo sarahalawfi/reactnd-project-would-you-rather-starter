@@ -2,19 +2,22 @@ import React, { Component } from 'react'
 import Hi from "./../images/Hi.gif";
 import { userLogIn, userLogOut} from '../actions/authedUser'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 class LogIn extends Component {
-    
+
    
+
+  
     state = {
         userName: '',
         toHome: false
     };
 
-    componentDidMount() {
-        this.props.dispatch(userLogOut())
-    }
+    // componentDidMount() {
+    //     this.props.dispatch(userLogOut())
+    // }
+
 
     selectUser = (event) => {
 
@@ -27,27 +30,36 @@ class LogIn extends Component {
    
     handleSubmit = e => {
   // take the id and pass it to userLogin()
-        const { userName } = this.state
+        const { userName, toHome } = this.state
+        const { history}=this.props
         e.preventDefault();
         this.props.dispatch(userLogIn(userName))
 
-        this.setState(()=>({
-            toHome: userName===''?false:true
-        }))
-      
+        if (toHome) {
+            const redirect = history.location.state;
+            if (redirect != null) {
+                return <Redirect to={redirect} push={true} />
+            }
+            return <Redirect to='/Home' />
+        }
+
 
     };
-
-    
-       
+  
 
    
 
     render() {
-        const { userName }=this.state
-        const { users }=this.props
+        const { userName, toHome }=this.state
+        const {history,users }=this.props
 
-       
+        if (toHome) {
+            const redirect = history.location.state;
+            if (redirect != null) {
+                return <Redirect to={redirect} push={true} />
+            }
+            return <Redirect to='/Home' />
+        }
        
         return (
             

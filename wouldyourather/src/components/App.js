@@ -31,26 +31,26 @@ class App extends Component {
           <Fragment>
           <LoadingBar />
           <div className="container">
-          
+           
             {authedUser === null ?
-              <Fragment>
-              < Route path='/' component={LogIn} /> 
-              </Fragment>
-              :
+           
+             < LogIn /> :
+              
               <Fragment>
                 < NavBar />
                 <Switch>
-                <Route exact path='/Home'  component={Home} />
-                <Route exact path='/questions/:id'  component={QuestionPoll}/>
-                <Route exact path='/add'  component={PostQuestion} />
-                <Route exact path='/leaderboard'  component={LeaderBoard} />
-                  <Route exact path='/LogOut'   component={LogOut} /> 
+                
+                  <Route path='/'  exact component={Home} />
+                  < Route path='/' exact component={LogIn} /> 
+                  <Route path='/questions/:id' exact  component={QuestionPoll}/>
+                  <Route path='/add' exact  component={PostQuestion} />
+                  <Route path='/leaderboard' exact component={LeaderBoard} />
+                  <Route path='/LogOut'  exact component={LogOut} /> 
                 <Route  component={ErrorPage} />
                 </Switch>
               </Fragment>
-
                
-           }
+           }  
            
           </div>
           </Fragment>

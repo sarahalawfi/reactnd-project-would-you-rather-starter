@@ -133,8 +133,10 @@ class QuestionPoll extends Component{
                                    </Grid.Column>
                               </Grid>
                          </Segment>
+                         
                        
                </Card.Content>
+
             
            
         </Card>

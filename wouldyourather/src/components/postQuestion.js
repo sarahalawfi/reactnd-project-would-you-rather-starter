@@ -38,6 +38,7 @@ class PostQuestion extends Component {
             toHome: true
         }))
         
+        
 
     }
 
@@ -45,7 +46,7 @@ class PostQuestion extends Component {
         const { optionTwoText, optionOneText,toHome }=this.state
 
         if (toHome === true) {
-            return <Redirect to='/Home' />
+            return <Redirect to='/' />
         }
      
         return(
