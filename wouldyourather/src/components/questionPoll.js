@@ -26,11 +26,11 @@ class QuestionPoll extends Component{
             }
         }
 
-    // toDetails = (e, id) => {
-    //     e.preventDefault();
-    //     this.props.history.push(`/questions/${id}`);  
+    toDetails = (e, id) => {
+        e.preventDefault();
+        this.props.history.push(`/questions/${id}`);  
       
-    // }
+    }
 
     handleChange = (event) => {
         const nawValue = event.target.value;
@@ -68,7 +68,7 @@ class QuestionPoll extends Component{
         const { answer, OpenResultPage} =this.state
 
         return(
-            <Link to={`/questions/${question.id}`} className='questions'>
+            
             <Card.Group >
              <Card>
               <Card.Content>
@@ -100,12 +100,13 @@ class QuestionPoll extends Component{
                                 </label>
                                  </div>
                                  <div className="form-group">
-                                <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary"  type="submit" >
+                                <Button disabled={answer === ''} className="cssBtn twoButtonSing btn btn-primary" type="submit" >
                                     Submit
                                 </Button>
                                  </div>       
                                  </Card.Description>
-                                   </form> ):(
+                                   </form> 
+                                   ):(
                                             <React.Fragment>     
                                     <Card.Content>
                                     <Card.Header>Result</Card.Header>
@@ -135,14 +136,19 @@ class QuestionPoll extends Component{
                          </Segment>
                          
                        
+                        <Card.Content>
+                            <Button onClick={(e) => this.toDetails(e, question.id)} className="cssBtn  " >View</Button>
+                        </Card.Content>
+
                </Card.Content>
 
+               
             
            
         </Card>
         
     </Card.Group>
-            </Link>
+            
     )}
 }
 
